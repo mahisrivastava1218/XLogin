@@ -40,11 +40,14 @@ function App() {
         </Typography>
       )}
 <Stack direction={'column'} alignItems={'center'} padding={2} margin={5} gap={2}>
- <label>Username:<input name="username"  value={username} onChange={(e)=>{setUserName(e.target.value)}} placeholder="username" required style={{width:'400px',padding:'10px'}}/>
-</label>
-<label>Password:<input name="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder="password"style={{width:'400px',padding:'10px'}}  required/>
-</label>
-    <button style={{padding:'10px'}}>Submit</button>
+
+<label htmlFor="username" label="Username">Username:</label>
+<input id="username" name="username"   value={username} onChange={(e)=>{setUserName(e.target.value)}} placeholder="username" required style={{width:'400px',padding:'10px'}}/>
+
+<label htmlFor="password" label="Password">Password:</label>
+<input id="password" type="password" name="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder="password" required style={{width:'400px',padding:'10px'}}/>
+
+    <button type='submit' style={{padding:'10px'}}>Submit</button>
     </Stack>
   </form>
   {isLoggedIn &&  (
