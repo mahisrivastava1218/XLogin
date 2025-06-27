@@ -5,6 +5,7 @@ function App() {
   const [username,setUserName] = useState('');
   const[password,setPassword]=useState('');
   const[message,setMessage]=useState('');
+  const[error,setError] = useState(false);
   const handleSubmit=(event)=>{
    event.preventDefault();
    const form = event.target;
@@ -13,28 +14,40 @@ function App() {
    if(enteredusername==="user" && enteredpassword==="password"){
    setUserName(enteredusername);
    setPassword(enteredpassword);
-   setMessage("Welcome, user!")
+   setMessage("Welcome, user!");
+   setError(false)
    }else{
-    setUserName(enteredusername);
-    setPassword(enteredpassword);
-    setMessage("Invalid username or password")
+    setMessage("Invalid username or password");
+    setError(true);
    }
   }
+  const isLoggedIn= username && password && !error
   return (
   <Stack width='100vw'>
   <form onSubmit={handleSubmit}>
   <Typography variant="h1" component={'h1'} textAlign={'center'}>
     Login Page
   </Typography>
-     {!username && !password && (
- <Stack direction={'column'} alignItems={'center'} padding={2} margin={5} gap={2}>
-    <input name="username" labelled="Username" placeholder="username" required style={{width:'400px',padding:'10px'}}/>
-    <input name="password" labelled="Password" placeholder="password"style={{width:'400px',padding:'10px'}}  required/>
-    <button type='submit' style={{padding:'10px'}}>Submit</button>
+     {/* Show message if exists */}
+      {message && (
+        <Typography
+          variant="h6"
+          color={error ? "error" : "primary"}
+          textAlign="center"
+          margin={2}
+        >
+          {message}
+        </Typography>
+      )}
+<Stack direction={'column'} alignItems={'center'} padding={2} margin={5} gap={2}>
+ <label>Username:<input name="username"  value={username} onChange={(e)=>{setUserName(e.target.value)}} placeholder="username" required style={{width:'400px',padding:'10px'}}/>
+</label>
+<label>Password:<input name="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} placeholder="password"style={{width:'400px',padding:'10px'}}  required/>
+</label>
+    <button style={{padding:'10px'}}>Submit</button>
     </Stack>
-     )}
   </form>
-  {message && (
+  {isLoggedIn &&  (
    <Typography variant="h3" component={'h3'}>{message}</Typography>
   )
    }
